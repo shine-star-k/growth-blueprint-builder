@@ -53,21 +53,21 @@ const LeadCaptureModal = ({
           onClick={onClose}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+            exit={{ scale: 0.95, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md bg-card border border-border rounded-2xl p-8 relative glow-primary"
+            className="w-full max-w-md bg-card border border-border rounded-lg p-8 relative"
           >
-            <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
+            <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors">
               <X className="w-5 h-5" />
             </button>
 
             <div className="text-center mb-6">
-              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-6 h-6 text-primary" />
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="text-xl font-bold font-display">{title}</h3>
+              <h3 className="text-xl font-bold font-display tracking-tight">{title}</h3>
               <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
             </div>
 
@@ -76,7 +76,7 @@ const LeadCaptureModal = ({
                 placeholder="Your Name"
                 value={data.name}
                 onChange={(e) => setData({ ...data, name: e.target.value })}
-                className="bg-secondary border-border"
+                className="bg-secondary border-border rounded-sm"
                 required
               />
               <Input
@@ -84,7 +84,7 @@ const LeadCaptureModal = ({
                 placeholder="Email Address"
                 value={data.email}
                 onChange={(e) => setData({ ...data, email: e.target.value })}
-                className="bg-secondary border-border"
+                className="bg-secondary border-border rounded-sm"
                 required
               />
               {showCompany && (
@@ -92,7 +92,7 @@ const LeadCaptureModal = ({
                   placeholder="Company Name"
                   value={data.company || ""}
                   onChange={(e) => setData({ ...data, company: e.target.value })}
-                  className="bg-secondary border-border"
+                  className="bg-secondary border-border rounded-sm"
                 />
               )}
               {showPhone && (
@@ -102,7 +102,7 @@ const LeadCaptureModal = ({
                     placeholder="Phone (optional)"
                     value={data.phone || ""}
                     onChange={(e) => setData({ ...data, phone: e.target.value })}
-                    className="bg-secondary border-border pl-10"
+                    className="bg-secondary border-border pl-10 rounded-sm"
                   />
                 </div>
               )}
@@ -113,11 +113,11 @@ const LeadCaptureModal = ({
                     placeholder="WhatsApp Number (optional)"
                     value={data.whatsapp || ""}
                     onChange={(e) => setData({ ...data, whatsapp: e.target.value })}
-                    className="bg-secondary border-border pl-10"
+                    className="bg-secondary border-border pl-10 rounded-sm"
                   />
                 </div>
               )}
-              <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold gap-2">
+              <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/80 font-bold gap-2 rounded-sm">
                 Get My Report <ArrowRight className="w-4 h-4" />
               </Button>
             </form>

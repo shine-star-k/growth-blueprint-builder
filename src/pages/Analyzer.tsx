@@ -38,8 +38,8 @@ const generateScores = () => ({
 const FAQItem = ({ q, a }: { q: string; a: string }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-border rounded-xl overflow-hidden">
-      <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between p-5 text-left">
+    <div className="border border-border rounded-lg overflow-hidden">
+      <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between p-5 text-left hover:bg-card/50 transition-colors">
         <span className="font-medium text-sm">{q}</span>
         {open ? <ChevronUp className="w-4 h-4 text-muted-foreground flex-shrink-0" /> : <ChevronDown className="w-4 h-4 text-muted-foreground flex-shrink-0" />}
       </button>
@@ -56,12 +56,12 @@ const FAQItem = ({ q, a }: { q: string; a: string }) => {
 
 const Navbar = () => (
   <nav className="fixed top-0 left-0 right-0 z-50 bg-glass">
-    <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-      <Link to="/" className="text-xl font-bold font-display text-gradient-primary">GrowthLab</Link>
+    <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <Link to="/" className="text-xl font-bold font-display text-gradient-primary tracking-tight">GrowthLab</Link>
       <div className="hidden md:flex items-center gap-8">
-        <Link to="/calculator" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Calculator</Link>
-        <Link to="/analyzer" className="text-sm text-foreground font-medium">Analyzer</Link>
-        <Link to="/simulator" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Simulator</Link>
+        <Link to="/calculator" className="text-sm text-muted-foreground hover:text-primary transition-colors">Calculator</Link>
+        <Link to="/analyzer" className="text-sm text-primary font-medium">Analyzer</Link>
+        <Link to="/simulator" className="text-sm text-muted-foreground hover:text-primary transition-colors">Simulator</Link>
       </div>
     </div>
   </nav>
@@ -69,12 +69,12 @@ const Navbar = () => (
 
 const Footer = () => (
   <footer className="py-10 border-t border-border">
-    <div className="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-      <span className="text-sm font-bold font-display text-gradient-primary">GrowthLab</span>
+    <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <span className="text-sm font-bold font-display text-gradient-primary tracking-tight">GrowthLab</span>
       <div className="flex gap-6 text-sm text-muted-foreground">
-        <Link to="/calculator" className="hover:text-foreground transition-colors">Calculator</Link>
-        <Link to="/analyzer" className="hover:text-foreground transition-colors">Analyzer</Link>
-        <Link to="/simulator" className="hover:text-foreground transition-colors">Simulator</Link>
+        <Link to="/calculator" className="hover:text-primary transition-colors">Calculator</Link>
+        <Link to="/analyzer" className="hover:text-primary transition-colors">Analyzer</Link>
+        <Link to="/simulator" className="hover:text-primary transition-colors">Simulator</Link>
       </div>
       <p className="text-xs text-muted-foreground">© 2026 GrowthLab. All rights reserved.</p>
     </div>
@@ -132,7 +132,7 @@ const Analyzer = () => {
         <Navbar />
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
           <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-6" />
-          <h2 className="text-xl font-bold font-display mb-2">Analyzing {data.url}...</h2>
+          <h2 className="text-xl font-bold font-display mb-2 tracking-tight">Analyzing {data.url}...</h2>
           <p className="text-muted-foreground text-sm">Running 47 diagnostic checks</p>
           <div className="mt-6 space-y-2 text-sm text-muted-foreground">
             {["Checking page speed...", "Scanning SEO tags...", "Testing mobile responsiveness...", "Analyzing conversion paths...", "Calculating revenue impact..."].map((t, i) => (
@@ -150,26 +150,26 @@ const Analyzer = () => {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Navbar />
-        <div className="max-w-lg mx-auto px-4 pt-24 pb-12 flex-1 flex flex-col w-full">
+        <div className="max-w-lg mx-auto px-6 pt-24 pb-12 flex-1 flex flex-col w-full">
           <div className="mb-6">
             <div className="flex justify-between text-sm text-muted-foreground mb-2">
               <span>Step {qualifyStep + 1} of {qualifySteps.length}</span>
-              <span className="text-primary">{Math.round(((qualifyStep + 1) / qualifySteps.length) * 100)}%</span>
+              <span className="text-primary font-medium">{Math.round(((qualifyStep + 1) / qualifySteps.length) * 100)}%</span>
             </div>
             <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
-              <motion.div className="h-full rounded-full bg-gradient-to-r from-primary to-accent" animate={{ width: `${((qualifyStep + 1) / qualifySteps.length) * 100}%` }} />
+              <motion.div className="h-full rounded-full bg-primary" animate={{ width: `${((qualifyStep + 1) / qualifySteps.length) * 100}%` }} />
             </div>
           </div>
 
           <AnimatePresence mode="wait">
             <motion.div key={qualifyStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="flex-1">
-              <h2 className="text-xl font-bold font-display mb-4">{current.title}</h2>
+              <h2 className="text-xl font-bold font-display mb-4 tracking-tight">{current.title}</h2>
               <div className="space-y-2 mb-4">
                 {current.options.map((opt) => (
                   <button key={opt} onClick={() => {
                     if (opt === "Other" && current.hasOther) setData({ ...data, [current.field]: `Other: ${otherFrustration}` });
                     else setData({ ...data, [current.field]: opt });
-                  }} className={`w-full text-left p-4 rounded-xl border-2 transition-all ${data[current.field] === opt || (data[current.field]?.startsWith("Other") && opt === "Other") ? "border-primary bg-primary/10" : "border-border bg-card hover:border-primary/30"}`}>
+                  }} className={`w-full text-left p-4 rounded-lg border-2 transition-all ${data[current.field] === opt || (data[current.field]?.startsWith("Other") && opt === "Other") ? "border-primary bg-primary/10" : "border-border bg-card hover:border-primary/30"}`}>
                     {opt}
                   </button>
                 ))}
@@ -181,8 +181,8 @@ const Analyzer = () => {
           </AnimatePresence>
 
           <div className="flex justify-between pt-4">
-            <Button variant="outline" onClick={() => qualifyStep > 0 ? setQualifyStep(qualifyStep - 1) : setPhase("input")} className="gap-1"><ArrowLeft className="w-4 h-4" /> Back</Button>
-            <Button onClick={handleQualifyNext} disabled={!data[qualifySteps[qualifyStep].field]} className="bg-primary text-primary-foreground hover:bg-primary/90 gap-1">{qualifyStep === qualifySteps.length - 1 ? "Analyze My Site" : "Next"} <ArrowRight className="w-4 h-4" /></Button>
+            <Button variant="outline" onClick={() => qualifyStep > 0 ? setQualifyStep(qualifyStep - 1) : setPhase("input")} className="gap-1 rounded-sm"><ArrowLeft className="w-4 h-4" /> Back</Button>
+            <Button onClick={handleQualifyNext} disabled={!data[qualifySteps[qualifyStep].field]} className="bg-primary text-primary-foreground hover:bg-primary/80 gap-1 rounded-sm">{qualifyStep === qualifySteps.length - 1 ? "Analyze My Site" : "Next"} <ArrowRight className="w-4 h-4" /></Button>
           </div>
         </div>
       </div>
@@ -194,13 +194,13 @@ const Analyzer = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="max-w-5xl mx-auto px-4 pt-24 pb-16">
+        <div className="max-w-5xl mx-auto px-6 pt-24 pb-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-            <h1 className="text-3xl md:text-4xl font-bold font-display mb-2">Website Audit Results</h1>
+            <h1 className="text-4xl md:text-5xl font-bold font-display mb-3 tracking-tight">Website Audit Results</h1>
             <p className="text-muted-foreground">{data.url}</p>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-destructive/10 border border-destructive/30 rounded-xl p-5 mb-8 flex items-start gap-3">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-destructive/10 border border-destructive/30 rounded-lg p-5 mb-8 flex items-start gap-3">
             <AlertTriangle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
             <div>
               <p className="font-semibold text-destructive">Your website is potentially losing ${revenueLoss.toLocaleString()}/month</p>
@@ -208,7 +208,7 @@ const Analyzer = () => {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-10 bg-card border border-border rounded-xl p-8">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-10 bg-card border border-border rounded-lg p-8">
             <ScoreRing score={overallHealth} label="Overall Health" size={110} />
             <ScoreRing score={scores.speed} label="Speed" size={110} />
             <ScoreRing score={scores.seo} label="SEO" size={110} />
@@ -216,14 +216,14 @@ const Analyzer = () => {
             <ScoreRing score={100 - scores.conversionLeak} label="Conversion" size={110} />
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-10">
+          <div className="grid md:grid-cols-2 gap-4 mb-10">
             {[
               { icon: <TrendingDown className="w-5 h-5" />, label: "Conversion Leak Score", value: `${scores.conversionLeak}/100`, desc: "Higher means more revenue lost", color: "text-destructive" },
               { icon: <ShieldAlert className="w-5 h-5" />, label: "Trust Signal Deficiency", value: `${scores.trustDeficiency}/100`, desc: "Based on analysis of 500+ business websites", color: "text-warning" },
               { icon: <Eye className="w-5 h-5" />, label: "Traffic Waste", value: `${trafficWaste}%`, desc: `${trafficWaste}% of visitors leave without engaging`, color: "text-destructive" },
               { icon: <Gauge className="w-5 h-5" />, label: "Revenue Loss Estimate", value: `$${revenueLoss.toLocaleString()}/mo`, desc: "Compared to other companies in your revenue range", color: "text-destructive" },
             ].map((item, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + i * 0.1 }} className="bg-card border border-border rounded-xl p-6">
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + i * 0.1 }} className="bg-card border border-border rounded-lg p-6">
                 <div className="flex items-center gap-2 mb-2"><span className={item.color}>{item.icon}</span><span className="text-sm text-muted-foreground">{item.label}</span></div>
                 <p className={`text-2xl font-bold font-display ${item.color}`}>{item.value}</p>
                 <p className="text-xs text-muted-foreground mt-1">{item.desc}</p>
@@ -231,8 +231,8 @@ const Analyzer = () => {
             ))}
           </div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }} className="bg-card border border-border rounded-xl p-6 mb-10">
-            <h3 className="font-bold font-display mb-4">Automated Checks</h3>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }} className="bg-card border border-border rounded-lg p-6 mb-10">
+            <h3 className="font-bold font-display mb-4 tracking-tight">Automated Checks</h3>
             <div className="grid md:grid-cols-3 gap-4">
               {[
                 { icon: <Gauge className="w-4 h-4" />, label: "Page Speed", status: scores.speed > 50 ? "Pass" : "Fail", ok: scores.speed > 50 },
@@ -244,7 +244,7 @@ const Analyzer = () => {
               ].map((check, i) => (
                 <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
                   <div className="flex items-center gap-2 text-sm">{check.icon} {check.label}</div>
-                  <span className={`text-xs font-medium ${check.ok ? "text-accent" : "text-destructive"}`}>{check.status}</span>
+                  <span className={`text-xs font-medium ${check.ok ? "text-primary" : "text-destructive"}`}>{check.status}</span>
                 </div>
               ))}
             </div>
@@ -256,7 +256,7 @@ const Analyzer = () => {
               { label: "Paid Deep Audit ($99–$299)", desc: "Full technical + UX audit, credited if you work with us", primary: false },
               { label: "Instant Proposal Preview", desc: "See what a custom solution looks like", primary: false },
             ].map((cta, i) => (
-              <button key={i} onClick={() => setShowLeadCapture(true)} className={`p-5 rounded-xl border-2 text-left transition-all hover:scale-[1.02] ${cta.primary ? "border-primary bg-primary/10 glow-primary" : "border-border bg-card hover:border-primary/30"}`}>
+              <button key={i} onClick={() => setShowLeadCapture(true)} className={`p-5 rounded-lg border-2 text-left transition-all hover:scale-[1.02] ${cta.primary ? "border-primary bg-primary/10" : "border-border bg-card hover:border-primary/30"}`}>
                 <p className={`font-semibold ${cta.primary ? "text-primary" : "text-foreground"}`}>{cta.label}</p>
                 <p className="text-xs text-muted-foreground mt-1">{cta.desc}</p>
               </button>
@@ -264,8 +264,8 @@ const Analyzer = () => {
           </motion.div>
 
           {leadCaptured && (
-            <div className="bg-accent/10 border border-accent/30 rounded-xl p-6 text-center mb-10">
-              <p className="text-accent font-semibold">✓ Your audit report is on its way!</p>
+            <div className="bg-primary/10 border border-primary/30 rounded-lg p-6 text-center mb-10">
+              <p className="text-primary font-semibold">✓ Your audit report is on its way!</p>
             </div>
           )}
 
@@ -282,57 +282,56 @@ const Analyzer = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-destructive/3 via-transparent to-transparent" />
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full bg-destructive/3 blur-[100px]" />
-        <div className="max-w-4xl mx-auto px-4 relative text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-2 text-destructive bg-destructive/10 px-4 py-1.5 rounded-full text-sm font-medium mb-6 border border-destructive/20">
-              <Globe className="w-4 h-4" /> Website URL Analyzer
+      <section className="relative pt-36 pb-24">
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-destructive/3 blur-[150px]" />
+        <div className="max-w-7xl mx-auto px-6 relative">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 text-primary bg-primary/10 px-4 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-widest mb-8 border border-primary/20">
+              <Globe className="w-3.5 h-3.5" /> Website URL Analyzer
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-5 leading-[1.1]">
-              Is Your Website <span className="text-gradient-primary">Costing You Money?</span>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-display mb-6 leading-[0.95] tracking-tight">
+              Is Your Website<br /><span className="text-gradient-primary">Costing You Money?</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
+            <p className="text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed">
               Enter any URL for an instant 47-point audit. Discover speed issues, SEO gaps, conversion leaks, and exactly how much revenue you're losing every month.
             </p>
 
             {/* URL Input */}
-            <div className="max-w-xl mx-auto mb-8">
+            <div className="max-w-xl mb-8">
               <div className="flex gap-2">
-                <Input placeholder="https://yourwebsite.com" value={data.url} onChange={(e) => setData({ ...data, url: e.target.value })} className="bg-card border-border text-base h-13" onKeyDown={(e) => e.key === "Enter" && handleAnalyze()} />
-                <Button onClick={handleAnalyze} disabled={!data.url.trim()} className="bg-primary text-primary-foreground hover:bg-primary/90 h-13 px-6 font-semibold gap-2 glow-primary">Analyze <ArrowRight className="w-4 h-4" /></Button>
+                <Input placeholder="https://yourwebsite.com" value={data.url} onChange={(e) => setData({ ...data, url: e.target.value })} className="bg-card border-border text-base h-14 rounded-sm" onKeyDown={(e) => e.key === "Enter" && handleAnalyze()} />
+                <Button onClick={handleAnalyze} disabled={!data.url.trim()} className="bg-primary text-primary-foreground hover:bg-primary/80 h-14 px-6 font-bold gap-2 rounded-sm">Analyze <ArrowRight className="w-4 h-4" /></Button>
               </div>
             </div>
 
-            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5"><Clock className="w-4 h-4 text-primary" /> 47-point audit</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-accent" /> Free & instant</span>
-              <span className="flex items-center gap-1.5"><Users className="w-4 h-4 text-primary" /> 500+ audited</span>
+            <div className="flex items-center gap-8 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2"><Clock className="w-4 h-4 text-primary" /> 47-point audit</span>
+              <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> Free & instant</span>
+              <span className="flex items-center gap-2"><Users className="w-4 h-4 text-primary" /> 500+ audited</span>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* What We Check */}
-      <section className="py-20 bg-card/50">
-        <div className="max-w-5xl mx-auto px-4">
-          <motion.div {...fadeUp} className="text-center mb-12">
-            <span className="text-xs uppercase tracking-widest text-primary font-medium">47-Point Analysis</span>
-            <h2 className="text-3xl font-bold font-display mt-2 mb-3">What We Audit</h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">Two layers of analysis: surface-level technical checks and deep psychological conversion triggers.</p>
+      <section className="py-24 bg-card/60 border-y border-border/40">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div {...fadeUp} className="mb-14">
+            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">47-Point Analysis</span>
+            <h2 className="text-4xl font-bold font-display mt-3 mb-3 tracking-tight">What We Audit</h2>
+            <p className="text-muted-foreground max-w-lg text-lg">Two layers of analysis: surface-level technical checks and deep psychological conversion triggers.</p>
           </motion.div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <motion.div {...fadeUp} className="bg-card border border-border rounded-xl p-6">
-              <h3 className="font-bold font-display mb-4 flex items-center gap-2"><Zap className="w-5 h-5 text-primary" /> Surface Layer</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <motion.div {...fadeUp} className="bg-card border border-border rounded-lg p-6 hover:border-primary/30 transition-colors">
+              <h3 className="font-bold font-display mb-4 flex items-center gap-2 tracking-tight"><Zap className="w-5 h-5 text-primary" /> Surface Layer</h3>
               <div className="space-y-3">
                 {["Page Speed Score", "Mobile Responsiveness", "SSL Certificate Status", "SEO Meta Tag Issues", "Broken Links Detection", "Basic Accessibility Flags"].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-sm"><CheckCircle2 className="w-4 h-4 text-accent flex-shrink-0" /> {item}</div>
+                  <div key={item} className="flex items-center gap-2 text-sm"><CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" /> {item}</div>
                 ))}
               </div>
             </motion.div>
-            <motion.div {...fadeUp} transition={{ delay: 0.1 }} className="bg-card border border-destructive/20 rounded-xl p-6">
-              <h3 className="font-bold font-display mb-4 flex items-center gap-2"><AlertTriangle className="w-5 h-5 text-destructive" /> High-Impact Layer</h3>
+            <motion.div {...fadeUp} transition={{ delay: 0.1 }} className="bg-card border border-destructive/20 rounded-lg p-6 hover:border-destructive/40 transition-colors">
+              <h3 className="font-bold font-display mb-4 flex items-center gap-2 tracking-tight"><AlertTriangle className="w-5 h-5 text-destructive" /> High-Impact Layer</h3>
               <div className="space-y-3">
                 {["Conversion Leak Score", "Revenue Loss Estimate", "Traffic Waste Percentage", "Trust Signal Deficiency Score", "Design Quality Assessment", "Overall Health Score"].map((item) => (
                   <div key={item} className="flex items-center gap-2 text-sm"><AlertTriangle className="w-4 h-4 text-warning flex-shrink-0" /> {item}</div>
@@ -343,21 +342,21 @@ const Analyzer = () => {
         </div>
       </section>
 
-      {/* Psychological triggers */}
-      <section className="py-20">
-        <div className="max-w-5xl mx-auto px-4">
-          <motion.div {...fadeUp} className="text-center mb-12">
-            <span className="text-xs uppercase tracking-widest text-primary font-medium">Why It Matters</span>
-            <h2 className="text-3xl font-bold font-display mt-2 mb-3">The Numbers Don't Lie</h2>
+      {/* Numbers */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div {...fadeUp} className="mb-14">
+            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Why It Matters</span>
+            <h2 className="text-4xl font-bold font-display mt-3 tracking-tight">The Numbers Don't Lie</h2>
           </motion.div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-4">
             {[
               { value: "27%", desc: "of website traffic leaves without taking any action on average", color: "text-destructive" },
               { value: "$3,200", desc: "average monthly revenue loss for businesses with poor conversion optimization", color: "text-warning" },
               { value: "500+", desc: "business websites analyzed to build our industry benchmark database", color: "text-primary" },
             ].map((stat, i) => (
-              <motion.div key={i} {...fadeUp} transition={{ delay: 0.1 * i }} className="bg-card border border-border rounded-xl p-6 text-center">
-                <p className={`text-4xl font-bold font-display mb-2 ${stat.color}`}>{stat.value}</p>
+              <motion.div key={i} {...fadeUp} transition={{ delay: 0.1 * i }} className="bg-card border border-border rounded-lg p-6 hover:border-primary/30 transition-colors">
+                <p className={`text-5xl font-bold font-display mb-3 ${stat.color}`}>{stat.value}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">{stat.desc}</p>
               </motion.div>
             ))}
@@ -366,44 +365,46 @@ const Analyzer = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-card/50">
-        <div className="max-w-5xl mx-auto px-4">
-          <motion.div {...fadeUp} className="text-center mb-12">
-            <span className="text-xs uppercase tracking-widest text-primary font-medium">Real Results</span>
-            <h2 className="text-3xl font-bold font-display mt-2">What Users Discovered</h2>
+      <section className="py-28 bg-card/60 border-y border-border/40">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div {...fadeUp} className="mb-14">
+            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">Real Results</span>
+            <h2 className="text-4xl font-bold font-display mt-3 tracking-tight">What Users Discovered</h2>
           </motion.div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-4">
             {[
               { name: "Marcus Webb", role: "Marketing Director, TechFlow", text: "The URL Analyzer revealed we were losing $8K/month to conversion leaks we didn't even know existed. We fixed the top 3 issues and saw a 34% conversion increase in 6 weeks." },
               { name: "Lisa Nakamura", role: "E-commerce Manager, StyleHaus", text: "I was shocked to see our Trust Signal Deficiency score at 67/100. After implementing the recommendations, our add-to-cart rate jumped 22%." },
             ].map((t, i) => (
-              <motion.div key={i} {...fadeUp} transition={{ delay: 0.1 * i }} className="bg-card border border-border rounded-2xl p-6">
-                <div className="flex gap-0.5 mb-4">{[1,2,3,4,5].map(j => <Star key={j} className="w-4 h-4 text-warning fill-warning" />)}</div>
-                <p className="text-sm text-secondary-foreground leading-relaxed mb-4">"{t.text}"</p>
-                <p className="font-semibold text-sm">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
+              <motion.div key={i} {...fadeUp} transition={{ delay: 0.1 * i }} className="bg-background border border-border rounded-lg p-6 hover:border-primary/30 transition-colors">
+                <div className="flex gap-0.5 mb-4">{[1,2,3,4,5].map(j => <Star key={j} className="w-4 h-4 text-primary fill-primary" />)}</div>
+                <p className="text-sm text-secondary-foreground leading-relaxed mb-5">"{t.text}"</p>
+                <div className="border-t border-border pt-4">
+                  <p className="font-semibold text-sm">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">{t.role}</p>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Monetization Options */}
-      <section className="py-20">
-        <div className="max-w-5xl mx-auto px-4">
-          <motion.div {...fadeUp} className="text-center mb-12">
-            <span className="text-xs uppercase tracking-widest text-primary font-medium">After Your Audit</span>
-            <h2 className="text-3xl font-bold font-display mt-2 mb-3">Three Ways to Take Action</h2>
+      {/* Monetization */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div {...fadeUp} className="mb-14">
+            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">After Your Audit</span>
+            <h2 className="text-4xl font-bold font-display mt-3 tracking-tight">Three Ways to Take Action</h2>
           </motion.div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-4">
             {[
               { title: "Free Strategy Call", desc: "15-minute call with an expert to discuss your results and prioritize fixes.", badge: "Most Popular", primary: true },
               { title: "Deep Audit ($99–$299)", desc: "Full technical + UX audit with heatmap analysis, credited if you work with us.", badge: "Best Value", primary: false },
               { title: "Instant Proposal", desc: "See exactly what a custom solution looks like with pricing and timeline.", badge: "Fastest", primary: false },
             ].map((item, i) => (
-              <motion.div key={i} {...fadeUp} transition={{ delay: 0.1 * i }} className={`relative bg-card border-2 rounded-xl p-6 ${item.primary ? "border-primary glow-primary" : "border-border"}`}>
-                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${item.primary ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"}`}>{item.badge}</span>
-                <h3 className="font-bold font-display mt-3 mb-2">{item.title}</h3>
+              <motion.div key={i} {...fadeUp} transition={{ delay: 0.1 * i }} className={`relative bg-card border-2 rounded-lg p-6 hover:scale-[1.02] transition-all ${item.primary ? "border-primary" : "border-border hover:border-primary/30"}`}>
+                <span className={`text-xs font-semibold px-2 py-0.5 rounded-sm ${item.primary ? "bg-primary/10 text-primary" : "bg-secondary text-muted-foreground"}`}>{item.badge}</span>
+                <h3 className="font-bold font-display mt-3 mb-2 tracking-tight">{item.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
@@ -412,11 +413,11 @@ const Analyzer = () => {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 bg-card/50">
-        <div className="max-w-2xl mx-auto px-4">
-          <motion.div {...fadeUp} className="text-center mb-12">
-            <span className="text-xs uppercase tracking-widest text-primary font-medium">FAQ</span>
-            <h2 className="text-3xl font-bold font-display mt-2">Common Questions</h2>
+      <section className="py-28 bg-card/60 border-y border-border/40">
+        <div className="max-w-2xl mx-auto px-6">
+          <motion.div {...fadeUp} className="mb-14">
+            <span className="text-xs uppercase tracking-[0.2em] text-primary font-semibold">FAQ</span>
+            <h2 className="text-4xl font-bold font-display mt-3 tracking-tight">Common Questions</h2>
           </motion.div>
           <div className="space-y-3">
             <FAQItem q="Is the audit really free?" a="Yes. The initial 47-point audit is completely free with no signup required. We offer paid deep audits for businesses that want a comprehensive analysis." />
@@ -428,14 +429,14 @@ const Analyzer = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20">
-        <div className="max-w-3xl mx-auto px-4">
-          <motion.div {...fadeUp} className="text-center bg-gradient-to-br from-destructive/10 via-card to-primary/10 border border-destructive/20 rounded-3xl p-12">
-            <h2 className="text-3xl font-bold font-display mb-3">How Much Is Your Website Costing You?</h2>
+      <section className="py-24">
+        <div className="max-w-3xl mx-auto px-6">
+          <motion.div {...fadeUp} className="text-center bg-card border border-border rounded-lg p-14">
+            <h2 className="text-4xl font-bold font-display mb-4 tracking-tight">How Much Is Your Website<br />Costing You?</h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">Enter your URL and find out in under 2 minutes. Free, instant, no signup.</p>
             <div className="max-w-md mx-auto flex gap-2">
-              <Input placeholder="https://yourwebsite.com" value={data.url} onChange={(e) => setData({ ...data, url: e.target.value })} className="bg-card border-border h-12" onKeyDown={(e) => e.key === "Enter" && handleAnalyze()} />
-              <Button onClick={handleAnalyze} disabled={!data.url.trim()} className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 px-6 font-semibold gap-2">Analyze <ArrowRight className="w-4 h-4" /></Button>
+              <Input placeholder="https://yourwebsite.com" value={data.url} onChange={(e) => setData({ ...data, url: e.target.value })} className="bg-secondary border-border h-12 rounded-sm" onKeyDown={(e) => e.key === "Enter" && handleAnalyze()} />
+              <Button onClick={handleAnalyze} disabled={!data.url.trim()} className="bg-primary text-primary-foreground hover:bg-primary/80 h-12 px-6 font-bold gap-2 rounded-sm">Analyze <ArrowRight className="w-4 h-4" /></Button>
             </div>
           </motion.div>
         </div>
