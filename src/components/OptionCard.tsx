@@ -13,11 +13,11 @@ const OptionCard = ({ label, selected, onClick, icon, description }: OptionCardP
   return (
     <motion.button
       onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      className={`relative w-full text-left p-5 rounded-xl border-2 transition-all duration-200 ${
+      whileHover={{ scale: 1.01 }}
+      whileTap={{ scale: 0.99 }}
+      className={`relative w-full text-left p-5 rounded-lg border-2 transition-all duration-200 ${
         selected
-          ? "border-primary bg-primary/10 glow-primary"
+          ? "border-primary bg-primary/10"
           : "border-border bg-card hover:border-primary/30"
       }`}
     >
@@ -27,7 +27,7 @@ const OptionCard = ({ label, selected, onClick, icon, description }: OptionCardP
           <p className={`font-medium ${selected ? "text-primary" : "text-foreground"}`}>{label}</p>
           {description && <p className="text-sm text-muted-foreground mt-0.5">{description}</p>}
         </div>
-        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+        <div className={`w-6 h-6 rounded-sm border-2 flex items-center justify-center transition-all ${
           selected ? "border-primary bg-primary" : "border-muted-foreground/30"
         }`}>
           {selected && <Check className="w-3.5 h-3.5 text-primary-foreground" />}
